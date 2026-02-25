@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <title>菜单价格</title>
+    
+
+  </head>
+    
+  <body>
+  <!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
+    <title>Restaurante Progreso · Solo precios</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            background: #fef7e9;
+            color: #2d1b0e;
+        }
+
+        .header {
+            background: #b31b1b;
+            color: #ffd966;
+            padding: 1rem;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+        .header h1 {
+            font-size: 2rem;
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 0 #5a0e0e;
+        }
+        .header p {
+            font-size: 1.2rem;
+            background: #ffd966;
+            color: #b31b1b;
+            display: inline-block;
+            padding: 0.3rem 1.5rem;
+            border-radius: 40px;
+            margin-top: 0.5rem;
+            font-weight: bold;
+        }
+
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 1rem;
+            gap: 1.5rem;
+        }
+
+        .menu-section {
+            flex: 2;
+            min-width: 300px;
+        }
+
+        .categoria {
+            background: white;
+            border-radius: 28px;
+            padding: 1.5rem 1.2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 6px 16px rgba(180, 60, 20, 0.15);
+            border: 1px solid #f8d5b0;
+        }
+        .categoria h2 {
+            background: #b9602c;
+            color: white;
+            display: inline-block;
+            padding: 0.4rem 2rem;
+            border-radius: 40px;
+            font-size: 1.8rem;
+            margin-top: -2.2rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 0 #6d381a;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .item-card {
+            background: #fff6ea;
+            border-radius: 24px;
+            padding: 1rem;
+            border: 2px solid #f0c48b;
+            transition: 0.15s;
+            display: flex;
+            flex-direction: column;
+        }
+        .item-card:hover {
+            transform: scale(1.02);
+            border-color: #b9602c;
+            box-shadow: 0 8px 12px rgba(230, 180, 120, 0.3);
+        }
+        .item-nombre {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #4a2c17;
+            line-height: 1.2;
+        }
+        .item-desc {
+            font-size: 0.95rem;
+            color: #6f4e2e;
+            margin: 0.5rem 0 0.75rem;
+            font-style: italic;
+            border-left: 4px solid #f0b27a;
+            padding-left: 0.6rem;
+        }
+        .item-precio {
+            font-size: 1.7rem;
+            font-weight: 800;
+            color: #b31b1b;
+            margin-top: auto;
+            display: flex;
+            align-items: baseline;
+            gap: 5px;
+            flex-wrap: wrap;
+        }
+        .item-precio small {
+            font-size: 0.9rem;
+            font-weight: normal;
+            color: #aa6f4b;
+        }
+        .consultar-precio {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #aa6f4b;
+            background: #f3dbc1;
+            padding: 0.2rem 0.8rem;
+            border-radius: 30px;
+        }
+        .btn-aumentar {
+            background: #b9602c;
+            border: none;
+            color: white;
+            font-weight: bold;
+            font-size: 1.5rem;
+            padding: 0.5rem;
+            border-radius: 50%;
+            width: 48px;
+            height: 48px;
+            margin-top: 1rem;
+            cursor: pointer;
+            transition: 0.1s;
+            border-bottom: 4px solid #6d381a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            align-self: flex-end;
+        }
+        .btn-aumentar:active {
+            border-bottom-width: 2px;
+            transform: translateY(2px);
+        }
+        .btn-aumentar:disabled {
+            opacity: 0.5;
+            border-bottom-width: 2px;
+            background: #99755c;
+            cursor: not-allowed;
+        }
+
+        .cart-sidebar {
+            flex: 0.8;
+            min-width: 280px;
+            background: #fce9d8;
+            border-radius: 36px 36px 20px 20px;
+            padding: 1.5rem 1rem;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            border: 3px solid #b9602c;
+            height: fit-content;
+            position: sticky;
+            top: 100px;
+        }
+        .cart-sidebar h3 {
+            background: #b31b1b;
+            color: #ffd966;
+            padding: 0.8rem;
+            text-align: center;
+            border-radius: 50px;
+            font-size: 2rem;
+            margin-top: -2.2rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 5px 0 #681212;
+            text-transform: uppercase;
+        }
+        .cart-items {
+            max-height: 400px;
+            overflow-y: auto;
+            padding-right: 5px;
+        }
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: white;
+            border-radius: 40px;
+            padding: 0.6rem 1rem;
+            margin-bottom: 0.8rem;
+            border: 1px solid #e1b282;
+            font-size: 1rem;
+        }
+        .cart-item-info {
+            flex: 2;
+        }
+        .cart-item-nombre {
+            font-weight: 600;
+            font-size: 1rem;
+            line-height: 1.2;
+        }
+        .cart-item-precio {
+            color: #b31b1b;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+        .cart-item-cantidad {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            background: #f7dbb5;
+            padding: 0.2rem 0.4rem;
+            border-radius: 30px;
+            margin: 0 0.5rem;
+        }
+        .cart-item-cantidad button {
+            background: #b9602c;
+            color: white;
+            border: none;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            font-weight: bold;
+            font-size: 1.2rem;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .cart-item-cantidad span {
+            min-width: 22px;
+            text-align: center;
+            font-weight: 700;
+        }
+        .btn-eliminar {
+            background: none;
+            border: none;
+            font-size: 1.4rem;
+            color: #a03939;
+            cursor: pointer;
+            padding: 0 4px;
+        }
+        .cart-total {
+            display: flex;
+            justify-content: space-between;
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: #b9602c;
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 60px;
+            margin: 1.5rem 0 1rem;
+            border: 2px solid #ffd966;
+        }
+        .cart-vacio {
+            text-align: center;
+            color: #996b42;
+            padding: 2rem 0;
+            font-style: italic;
+        }
+        .aviso-local {
+            background: #f3dbc1;
+            border-radius: 40px;
+            padding: 1.2rem;
+            text-align: center;
+            font-size: 1.2rem;
+            color: #b31b1b;
+            font-weight: bold;
+            border: 2px dashed #b9602c;
+            margin-top: 1rem;
+        }
+        .footer-info {
+            background: #342117;
+            color: #fbe9d2;
+            padding: 2rem;
+            text-align: center;
+            margin-top: 2rem;
+            border-radius: 60px 60px 0 0;
+            font-size: 1.4rem;
+        }
+        .footer-info p {
+            margin: 0.5rem;
+        }
+        .footer-info .horario {
+            color: #ffb882;
+            font-weight: bold;
+        }
+
+        @media (max-width: 800px) {
+            .container {
+                flex-direction: column;
+            }
+            .cart-sidebar {
+                position: static;
+                margin-top: 1rem;
+                width: 100%;
+            }
+            .header h1 {
+                font-size: 1.8rem;
+            }
+            .categoria h2 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🍜 RESTAURANTE PROGRESO COMIDA CHINA</h1>
+        <p>San Ramón</p>
+    </div>
+
+    <div class="container">
+        <div class="menu-section" id="menuSection"></div>
+
+        <div class="cart-sidebar" id="cartSidebar">
+            <h3>🛒 MI SELECCIÓN</h3>
+            <div id="cartItemsContainer" class="cart-items">
+                <div class="cart-vacio">No has seleccionado nada</div>
+            </div>
+            <div class="cart-total">
+                <span>TOTAL</span>
+                <span id="cartTotal">$0</span>
+            </div>
+            <div class="aviso-local">
+                ⚠️ Los pedidos se realizan únicamente en el local.<br>
+                Esta página es solo para consultar precios.
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-info">
+        <p class="horario">⏰ Lunes a Domingo · 11:30 a 22:00 hrs.</p>
+        <p>📢 Abierto todos los días del año</p>
+        <p>📍 Av. Fernández Albano N°1740, San Ramón</p>
+        <p>🥢 Soya · Ají · Salsa Agridulce · Galleta Fortuna · Tenedor</p>
+    </div>
+
+    <script>
+        (function() {
+            const menuData = [
+                { categoria: "Aperitivos", nombre: "Wantan Frito (10 uds)", descripcion: "", precio: 3100 },
+                { categoria: "Aperitivos", nombre: "Arrollado Primavera", descripcion: "rollo relleno con verdura y carne (5 uds)", precio: 3500 },
+                { categoria: "Aperitivos", nombre: "Camaron Mandarin", descripcion: "empanada rellena con camarones fritos (5 uds)", precio: 5700 },
+                { categoria: "Aperitivos", nombre: "Hunan", descripcion: "ají relleno con pasta de pescado (6 uds)", precio: 5700 },
+                { categoria: "Aperitivos", nombre: "Arrollado Queso Jamón", descripcion: "rollitos rellenos con queso y jamón (5 uds)", precio: 4600 },
+                { categoria: "Aperitivos", nombre: "Arrollado de Queso", descripcion: "rollitos rellenos de queso (5 uds)", precio: 4400 },
+                { categoria: "Aperitivos", nombre: "Papas Fritas", descripcion: "", precio: 5400 },
+                { categoria: "Aperitivos", nombre: "Empanaditas de Pollo", descripcion: "consultar precio en local", precio: 5300 },
+
+                { categoria: "Sopas", nombre: "Sopa Wantan", descripcion: "Wantan, verduras y pollo", precio: 4900 },
+                { categoria: "Sopas", nombre: "Sopa I Fu Min", descripcion: "Pollo con tallarines especiales y verduras", precio: 4900 },
+                { categoria: "Sopas", nombre: "Sopa Especial", descripcion: "Pollo, chancho asado, verduras, champiñon y fideos arroz", precio: 5100 },
+                { categoria: "Sopas", nombre: "Sopa Hanchow", descripcion: "Pollo con fideos de arroz y verduras", precio: 4900 },
+                { categoria: "Sopas", nombre: "Sopa Mariscos", descripcion: "Congrio, camarones y verduras", precio: 5600 },
+
+                { categoria: "Chapsui", nombre: "Chapsui Especial", descripcion: "", precio: 8100 },
+                { categoria: "Chapsui", nombre: "Chapsui de Carne", descripcion: "", precio: 7500 },
+                { categoria: "Chapsui", nombre: "Chapsui de Camarón", descripcion: "", precio: 9300 },
+                { categoria: "Chapsui", nombre: "Chapsui de Verduras", descripcion: "", precio: 6900 },
+                { categoria: "Chapsui", nombre: "Chapsui de Pollo", descripcion: "consultar precio", precio: 7500 },
+                { categoria: "Chapsui", nombre: "Chapsui de Mariscos", descripcion: "consultar precio", precio: 9600 },
+                { categoria: "Chapsui", nombre: "Chapsui de Chancho", descripcion: "consultar precio", precio: 7500 },
+
+                { categoria: "Vacuno", nombre: "Carne Mongoliana", descripcion: "Trozos de carne, salsa soya, cebollín y aji verde", precio: 8800 },
+                { categoria: "Vacuno", nombre: "Carne a la China", descripcion: "Trozos de carne, salsa soya, algas chinas y champiñones", precio: 9100 },
+                { categoria: "Vacuno", nombre: "Carne Champiñon", descripcion: "Trozos de carne, salsa soya, algas, cebollín y champiñones", precio: 9100 },
+                { categoria: "Vacuno", nombre: "Carne Chiten", descripcion: "Trozos de carne, salsa soya, verduras y almendras", precio: 8100 },
+                { categoria: "Vacuno", nombre: "Carne Algas", descripcion: "Trozos de carne, algas y cebollín", precio: 9100 },
+                { categoria: "Vacuno", nombre: "Carne Ajo", descripcion: "Carne Sola", precio: 9000 },
+                { categoria: "Vacuno", nombre: "Carne Especial China", descripcion: "Vacuno, pollo, soya, camarón y cebollín", precio: 9800 },
+                { categoria: "Vacuno", nombre: "Carne Especial", descripcion: "Vacuno, pollo salteado, soya, aji y cebollín", precio: 8800 },
+
+                { categoria: "Pollo", nombre: "Pollo Ajo", descripcion: "Trozos de pollo estilo pekines, salsa soya y cebollín", precio: 8200 },
+                { categoria: "Pollo", nombre: "Pollo a la China", descripcion: "Trozos de pollo, salsa soya, algas chinas y champiñones", precio: 8500 },
+                { categoria: "Pollo", nombre: "Pollo Champiñon", descripcion: "Trozos de pollo, salsa soya, cebollín y champiñones", precio: 8500 },
+                { categoria: "Pollo", nombre: "Pollo Chicharrón", descripcion: "Trozos de pollo arrebozado y frito", precio: 8200 },
+                { categoria: "Pollo", nombre: "Pollo Piña", descripcion: "Trozos de pollo con salsa agridulce y piña", precio: 8200 },
+                { categoria: "Pollo", nombre: "Pollo Chiten", descripcion: "Trozos de pollo, salsa soya, verduras y almendras", precio: 7900 },
+                { categoria: "Pollo", nombre: "Pollo Algas", descripcion: "Trozos de pollo con algas y cebollín", precio: 8500 },
+                { categoria: "Pollo", nombre: "Pollo Mongoliano", descripcion: "Pollo Solo", precio: 8200 },
+                { categoria: "Pollo", nombre: "Pollo Empaquetado", descripcion: "Pollo con Camarones", precio: 10000 },
+
+                { categoria: "Arroz", nombre: "Arroz Chaufan", descripcion: "Arroz salteado con huevo y jamón", precio: 2400 },
+                { categoria: "Arroz", nombre: "Arroz Blanco", descripcion: "", precio: 2400 },
+                { categoria: "Arroz", nombre: "Arroz Chaufan Especial", descripcion: "consultar precio", precio: 5700 },
+
+                { categoria: "Diente de Dragón", nombre: "Diente Dragon con Carne", descripcion: "", precio: 7500 },
+                { categoria: "Diente de Dragón", nombre: "Diente Dragon con Champiñon y Algas", descripcion: "", precio: 7200 },
+                { categoria: "Diente de Dragón", nombre: "Diente Dragon con Chancho", descripcion: "", precio: 7500 },
+                { categoria: "Diente de Dragón", nombre: "Diente Dragon con Camarón", descripcion: "consultar precio", precio: 9700 },
+                { categoria: "Diente de Dragón", nombre: "Diente Dragon con Pollo", descripcion: "consultar precio", precio: 7500 },
+
+                { categoria: "Cerdo", nombre: "Costillar Cantones", descripcion: "Trozos de chancho frito, salsa agridulce y piña", precio: 8200 },
+                { categoria: "Cerdo", nombre: "Chancho Asado", descripcion: "Trozos de chancho asado estilo cantones", precio: 8200 },
+                { categoria: "Cerdo", nombre: "Chancho Piña", descripcion: "Trozos de chancho asado con salsa agridulce y piña", precio: 8200 },
+                { categoria: "Cerdo", nombre: "Chancho Algas", descripcion: "Trozos de chancho con algas y cebollín", precio: 8500 },
+                { categoria: "Cerdo", nombre: "Chancho Mongoliano", descripcion: "Trozos de chancho con aji verde y cebollín", precio: 8200 },
+                { categoria: "Cerdo", nombre: "Chancho Ajo", descripcion: "", precio: 8300 },
+                { categoria: "Cerdo", nombre: "Chancho a la China", descripcion: "", precio: 8500 },
+                { categoria: "Cerdo", nombre: "Chancho Champiñon", descripcion: "consultar precio", precio: 8500 },
+
+                { categoria: "Pescados y Mariscos", nombre: "Camarón Champiñon", descripcion: "Tortilla de camarón con huevo", precio: 11900 },
+                { categoria: "Pescados y Mariscos", nombre: "Camarón a la China", descripcion: "Camarón, champiñones, algas, cebollín y soya", precio: 12400 },
+                { categoria: "Pescados y Mariscos", nombre: "Camarón Mongoliano", descripcion: "Camarón salteado con cebollín", precio: 12400 },
+                { categoria: "Pescados y Mariscos", nombre: "Arrollado de Marisco", descripcion: "Pasta de pescado en panqueque, soya y cebollín", precio: 8500 },
+
+                { categoria: "Combos Familiares", nombre: "Para 2 Personas A", descripcion: "1 Wantan Frito · 1 Chapsui Carne · 1 Diente Dragon Pollo · 2 Arroz Chaufan", precio: 22500 },
+                { categoria: "Combos Familiares", nombre: "Para 3 Personas", descripcion: "2 Wantan Frito · 1 Chapsui Especial · 1 Carne Mongoliana · 1 Diente Dragon Carne · 3 Arroz Chaufan", precio: 37100 },
+                { categoria: "Combos Familiares", nombre: "Para 5 Personas", descripcion: "2 Wantan frito · 1 Arrollado Primavera · 1 Carne Mongoliana · 1 Chapsui pollo · 1 Diente Dragon Chancho · 1 Pollo a la China · 1 Chapsui Especial · 5 Arroz Chaufan", precio: 61100 },
+                { categoria: "Combos Familiares", nombre: "Parrillada China", descripcion: "Parrillada China", precio: 9600 },
+                { categoria: "Combos Familiares", nombre: "Para 2 Personas B", descripcion: "1 Wantan Frito · 1 Chapsui Pollo · 1 Carne Mongoliana · 2 Arroz Chaufan", precio: 23600 },
+                { categoria: "Combos Familiares", nombre: "Para 4 Personas", descripcion: "1 Wantan Frito · 1 Arrollado Primavera · 1 Carne Mongoliana · 1 Chapsui Pollo · 1 Diente Dragon Chancho · 1 Pollo Algas · 4 Arroz Chaufan", precio: 47700 }
+            ];
+
+            // Carrito global
+            // Carrito global
+            let cart = [];
+
+            function renderMenu() {
+                const menuSection = document.getElementById('menuSection');
+                const categorias = {};
+
+                menuData.forEach(item => {
+                    if (!categorias[item.categoria]) {
+                        categorias[item.categoria] = [];
+                    }
+                    categorias[item.categoria].push(item);
+                });
+
+                let html = '';
+                for (let cat in categorias) {
+                    const items = categorias[cat];
+                    html += `<div class="categoria"><h2>${cat}</h2><div class="menu-grid">`;
+                    items.forEach(item => {
+                        const precioVal = item.precio !== null ? `$${item.precio.toLocaleString('es-CL')}` : '';
+                        html += `<div class="item-card">
+                            <div class="item-nombre">${item.nombre}</div>`;
+                        if (item.descripcion) {
+                            html += `<div class="item-desc">${item.descripcion}</div>`;
+                        }
+                        if (item.precio !== null) {
+                            html += `<div class="item-precio">${precioVal}</div>`;
+                        } else {
+                            html += `<div class="consultar-precio">Consultar</div>`;
+                        }
+                        // Botón para aumentar cantidad (solo si hay precio)
+                        if (item.precio !== null) {
+                            html += `<button class="btn-aumentar" data-nombre="${item.nombre}" data-precio="${item.precio}">➕</button>`;
+                        } else {
+                            html += `<button class="btn-aumentar" disabled>🚫</button>`;
+                        }
+                        html += `</div>`;
+                    });
+                    html += `</div></div>`;
+                }
+                menuSection.innerHTML = html;
+
+                // Eventos para botones de aumentar
+                document.querySelectorAll('.btn-aumentar[data-nombre]').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        const nombre = e.currentTarget.dataset.nombre;
+                        const precio = parseInt(e.currentTarget.dataset.precio);
+                        aumentarCantidad(nombre, precio);
+                    });
+                });
+            }
+
+            function aumentarCantidad(nombre, precio) {
+                const existente = cart.find(item => item.nombre === nombre);
+                if (existente) {
+                    existente.cantidad += 1;
+                } else {
+                    cart.push({ nombre, precio, cantidad: 1 });
+                }
+                actualizarCarritoUI();
+            }
+
+            function eliminarDelCarrito(nombre) {
+                cart = cart.filter(item => item.nombre !== nombre);
+                actualizarCarritoUI();
+            }
+
+            function cambiarCantidad(nombre, delta) {
+                const item = cart.find(i => i.nombre === nombre);
+                if (item) {
+                    const nueva = item.cantidad + delta;
+                    if (nueva <= 0) {
+                        eliminarDelCarrito(nombre);
+                    } else {
+                        item.cantidad = nueva;
+                        actualizarCarritoUI();
+                    }
+                }
+            }
+
+            function actualizarCarritoUI() {
+                const container = document.getElementById('cartItemsContainer');
+                const totalSpan = document.getElementById('cartTotal');
+                if (cart.length === 0) {
+                    container.innerHTML = '<div class="cart-vacio">No has seleccionado nada</div>';
+                    totalSpan.innerText = '$0';
+                    return;
+                }
+
+                let html = '';
+                let total = 0;
+                cart.forEach(item => {
+                    total += item.precio * item.cantidad;
+                    html += `
+                        <div class="cart-item">
+                            <div class="cart-item-info">
+                                <div class="cart-item-nombre">${item.nombre}</div>
+                                <div class="cart-item-precio">$${item.precio.toLocaleString('es-CL')}</div>
+                            </div>
+                            <div class="cart-item-cantidad">
+                                <button class="disminuir" data-nombre="${item.nombre}">−</button>
+                                <span>${item.cantidad}</span>
+                                <button class="aumentar" data-nombre="${item.nombre}">+</button>
+                            </div>
+                            <button class="btn-eliminar" data-nombre="${item.nombre}">🗑️</button>
+                        </div>
+                    `;
+                });
+                container.innerHTML = html;
+                totalSpan.innerText = '$' + total.toLocaleString('es-CL');
+
+                // Eventos para botones de cantidad y eliminar
+                container.querySelectorAll('.disminuir').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        const nombre = e.target.dataset.nombre;
+                        cambiarCantidad(nombre, -1);
+                    });
+                });
+                container.querySelectorAll('.aumentar').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        const nombre = e.target.dataset.nombre;
+                        cambiarCantidad(nombre, 1);
+                    });
+                });
+                container.querySelectorAll('.btn-eliminar').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        const nombre = e.target.dataset.nombre;
+                        eliminarDelCarrito(nombre);
+                    });
+                });
+            }
+
+            // Inicializar
+            renderMenu();
+            actualizarCarritoUI();
+        })();
+    </script>
+</body>
+</html>
+```
+    
+  </body>
+  
+</html>
